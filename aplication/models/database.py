@@ -5,13 +5,12 @@ class Image(db.Model):
     __tablename__="images"
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
     filename=db.Column(db.String(50))
-    url=db.Column(db.String(50))
     created=db.Column(db.DateTime,nullable=False, default=datetime.utcnow)
     preserts=db.relationship('Presert',backref="images",cascade="delete,merge")
 
-    def __init__(self,filename,url):
+    def __init__(self,filename):
         self.filename=filename
-        self.url=url
+        
     
     def __repr__(self) -> str:
         return f'filename : {self.filename}'

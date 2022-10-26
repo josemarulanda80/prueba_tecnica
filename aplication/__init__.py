@@ -1,12 +1,13 @@
-from flask import Flask
+from flask import Flask,render_template,abort,send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 app=Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
 db = SQLAlchemy(app)
 
-@app.route("/")
-def index():
-    return "Hola"
+
+from aplication.views.start import init
+
+app.register_blueprint(init)
 
 db.create_all()
