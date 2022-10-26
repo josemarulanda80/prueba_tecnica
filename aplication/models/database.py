@@ -18,7 +18,7 @@ class Presert(db.Model):
     __tablename__="preserts"
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
     img=db.Column(db.Integer,db.ForeignKey('images.id',ondelete='CASCADE'))
-    value=db.Column(db.Integer)
+    value=db.Column(db.Float)
     created=db.Column(db.DateTime,nullable=False, default=datetime.utcnow)
     
     def __init__(self, img,value):

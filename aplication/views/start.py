@@ -2,16 +2,36 @@ from aplication import db
 from flask import render_template,abort,send_from_directory,Blueprint
 from fixtures.utils import get_register
 from aplication import app
+from aplication.models.database import Image,Presert
+
+
+def add_images_data_base():
+    images=["1.jpg","2.jpg","3.jpg","4.jpg"]
+    for i in range(0,4):
+        new_image=Image(filename=images[i])
+        db.session.add(new_image)
+        db.session.commit()
+    return "ed"
+
+def add_preserts_images():
+    preserts=[0.1,0.4,0.7,0.9]
+    for i in preserts:
+            new_preserts= Presert(img=1,value=i)
+            db.session.add(new_preserts)
+            db.session.commit()
+    return "bien"
+
 init = Blueprint('/',__name__)
+
 
 @init.route("/")
 def index():
-#     images=["1.jpg","2.jpg","3.jpg","4.jpg"]
-   
-#     new_image=Image(filename=images[0])
-#     db.session.add(new_image)
-#     db.session.commit()
-    
+    total_images=Image.query.all()
+    if total_images == []: 
+        add_images_data_base()
+        add_preserts_images()
+    else:
+        print("Hecho")
     return render_template("index.html")
 
 @init.route("/probar")

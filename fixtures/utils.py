@@ -22,11 +22,5 @@ def get_register():
     
 
 
-# def add_images_data_base():
-#     images=["1.jpg","2.jpg","3.jpg","4.jpg"]
-#     for i in range(0,4):
-#         new_image=Image(filename=images[i])
-#         db.session.add(new_image)
-#         db.session.commit()
-#     return "todobien"
+
 
