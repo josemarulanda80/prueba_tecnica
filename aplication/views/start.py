@@ -9,11 +9,14 @@ from aplication import cache
 
 init = Blueprint('/',__name__)
 
-
+cache.clear()
 @init.route("/")
+
 def index():
-    cache.clear() # Borrar todos los cachés **
+    
     total_images=Presert.query.all()
+    print("Holo")
+    print(total_images)
     if len(total_images) == 0: 
             insert_preserts()
             
@@ -26,7 +29,6 @@ def index():
 @init.route('/img',methods=["GET"])
 
 def get_file():
-    cache.clear() # Borrar todos los cachés **
     name_file=get_register()
   
     print(name_file)
