@@ -26,5 +26,4 @@ def get_file():
     if name_file!="Error: Not conexion":
         return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{str(name_file)}.jpg',as_attachment=False)
     else:
-        return {"message":"Error conexion modbu"}
-
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Nuvola_apps_error.svg/1200px-Nuvola_apps_error.svg.png"
