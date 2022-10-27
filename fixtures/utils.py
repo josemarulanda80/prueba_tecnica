@@ -1,4 +1,3 @@
-
 from pymodbus.client.tcp import ModbusTcpClient
 import pymysql
 import time
