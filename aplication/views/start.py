@@ -13,21 +13,10 @@ def index():
     total_preserts=Presert.query.all()
     if len(total_preserts) == 0: 
             insert_preserts()
-            return render_template("index.html",imagine=get_file())
+            return render_template("index.html",imagine=get_file(str(1)))
     else:
-        return render_template("index.html",imagine=get_file())
+        return render_template("index.html",imagine=get_file(str(1)))
     
-
-
-@init.route('/img',methods=["GET"])
-def get_file():
-    name_file=get_register()
-    print(name_file)
-
-    if name_file!="Error: Not conexion":
-        if name_file>0 and name_file <4:
-            return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{str(name_file)}.jpg',as_attachment=False)
-        else:
-            return None
-    else:
-        return None
+@init.route('/img/<name_file>',methods=["GET"])
+def get_file(name_file):
+        return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{name_file}.jpg',as_attachment=False)
