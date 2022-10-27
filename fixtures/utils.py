@@ -9,10 +9,9 @@ def get_register():
         client.connect()
         result = client.read_holding_registers(0,1)
         client.close()
-        if result.registers[0] >0 and  result.registers[0] <5:
-            return (result.registers[0])
-        else:
-            return "Error: Not conexion"
+
+        return (result.registers[0])
+    
     except:
         return "Error: Not conexion"
     

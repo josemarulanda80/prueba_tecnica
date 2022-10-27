@@ -1,22 +1,38 @@
 
+from unicodedata import name
 from aplication import db
 from flask import render_template,abort,send_from_directory,Blueprint, url_for,redirect
 from fixtures.utils import get_register,insert_preserts
 from aplication import app
 from aplication.models.database import Presert
+from aplication import cache
 
 init = Blueprint('/',__name__)
 
 
 @init.route("/")
 def index():
-    total_preserts=Presert.query.all()
-    if len(total_preserts) == 0: 
+    cache.clear() # Borrar todos los cachés **
+    total_images=Presert.query.all()
+    if len(total_images) == 0: 
             insert_preserts()
-            return render_template("index.html",imagine=get_file(str(1)))
+            
+            return redirect(url_for('/.index'))
     else:
-        return render_template("index.html",imagine=get_file(str(1)))
+        return render_template("index.html",imagine=get_file(),preserts=total_images)
     
-@init.route('/img/<name_file>',methods=["GET"])
-def get_file(name_file):
-        return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{name_file}.jpg',as_attachment=False)
+
+
+@init.route('/img',methods=["GET"])
+
+def get_file():
+    cache.clear() # Borrar todos los cachés **
+    name_file=get_register()
+  
+    print(name_file)
+    if name_file != "Error: Not conexion":
+        if name_file >0 and name_file <5:
+            return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{str(name_file)}.jpg')
+        else: 
+            return None
+    return None
