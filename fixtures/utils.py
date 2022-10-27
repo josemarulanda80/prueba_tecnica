@@ -23,29 +23,16 @@ def get_conexion():
                                 db='imagenes')
 
     return conexion
-def insert_images():
-    conexion = get_conexion()
-    images=["1.jpg","2.jpg","3.jpg","4.jpg"]
-    fecha = time.strftime("%y/%m/%d")
-    with conexion.cursor() as cursor:
-
-        for i in images:
-            cursor.execute("INSERT INTO images(filename,created) VALUES (%s,%s)",
-                       (i,fecha))
-    conexion.commit()
-    conexion.close()
-    conexion = get_conexion()
-    insert_preserts()
 
 
 def insert_preserts():
     conexion = get_conexion()
-    preserts=[0.1,0.4,0.7,0.9]
+    preserts=["a","b","c","d"]
+    values=[10,40,70,90]
     fecha = time.strftime("%y/%m/%d")
     with conexion.cursor() as cursor:
-        for j in range(1,5):
-            for i in preserts:
-                cursor.execute("INSERT INTO preserts(img,value,created) VALUES (%s,%s,%s)",
-                        (j,i,fecha))
+        for j in range(0,4):
+            cursor.execute("INSERT INTO preserts(filename,value,created) VALUES (%s,%s,%s)",
+                        (preserts[j],values[j],fecha))
     conexion.commit()
     conexion.close()
