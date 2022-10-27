@@ -1,7 +1,8 @@
 
-from unicodedata import name
+
+
 from aplication import db
-from flask import render_template,abort,send_from_directory,Blueprint, url_for,redirect
+from flask import render_template,abort, request,send_from_directory,Blueprint, url_for,redirect
 from fixtures.utils import get_register,insert_preserts
 from aplication import app
 from aplication.models.database import Presert
@@ -38,3 +39,12 @@ def get_file():
         else: 
             return None
     return None
+
+@init.route('/inte',methods=["POST"])
+def inte():
+    total_images=Presert.query.all()
+    if request.method == "POST":
+        print(request.form.get('mycheckbox'))
+        return f"Done {print(request.form.getlist('mycheckbox'))}"
+    
+    return render_template("index.html",imagine=get_file(),preserts=total_images)

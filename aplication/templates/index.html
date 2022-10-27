@@ -26,16 +26,16 @@
       {% else %}
       <div class="row mt-1">
         <div class="col-6 col-sm-5 card mt-1 ps-5 pt-2">
-          <form action="POST">
+          <form method="POST" action="/inte">
             
             <!-- <input class="row mb-1" type="checkbox" value="20" name="a">
             <input class="row mb-1" type="checkbox" value="20" name="b">
             <input class="row mb-1" type="checkbox" value="20" name="c">
             <input class="row mb-1" type="checkbox" value="20" name="d"> -->
             {% for i in preserts %}
-              <input class="row mb-1" type="checkbox" value="{{i.value}}" name="{{i.name}}">  
+              <input class="row mb-1" type="checkbox" value="{{i.value}}" name="mycheckbox">  
             {% endfor %}
-            <input class="row mb-1 btn btn-primary" type="submit" placeholder="Binarización" >
+            <input class="row mb-1 btn btn-primary" type="submit"  >
           </form>
         </div>
       
