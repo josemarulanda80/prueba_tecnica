@@ -11,15 +11,10 @@ init = Blueprint('/',__name__)
 @init.route("/")
 def index():
     total_images=Image.query.all()
-    if total_images == []: 
-       
+    if len(total_images) == 0: 
             insert_images()
-            # 
             return render_template("index.html")
-          
-      
     else:
-        insert_preserts()
         return render_template("index.html")
     
 

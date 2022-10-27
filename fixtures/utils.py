@@ -15,22 +15,20 @@ def get_register():
         #     return "No funciono"
         # print (' Connected.')
         result = client.read_holding_registers(0,1)
-        print((result.registers[0]))
         client.close()
         return (result.registers[0])
     except:
-        print("Error de conexion")
-        return "Horrible"
+        return "Error: Not conexion"
     
 
 
 def get_conexion():
-    
-    return pymysql.connect(host='localhost',
+    conexion=pymysql.connect(host='localhost',
                                 user='root',
                                 password='jos84mar19',
                                 db='imagenes')
 
+    return conexion
 def insert_images():
     conexion = get_conexion()
     images=["1.jpg","2.jpg","3.jpg","4.jpg"]
@@ -45,13 +43,13 @@ def insert_images():
     conexion = get_conexion()
     preserts=[0.1,0.4,0.7,0.9]
     fecha = time.strftime("%y/%m/%d")
-    with conexion.cursor() as cursor:
-        for j in range(1,5):
-            for i in preserts:
-                cursor.execute("INSERT INTO preserts(img,value,created) VALUES (%s,%s,%s)",
-                        (j,i,fecha))
-    conexion.commit()
-    conexion.close()
+    # with conexion.cursor() as cursor:
+    #     for j in range(1,5):
+    #         for i in preserts:
+    #             cursor.execute("INSERT INTO preserts(img,value,created) VALUES (%s,%s,%s)",
+    #                     (j,i,fecha))
+    # conexion.commit()
+    # conexion.close()
     insert_preserts()
 
 
