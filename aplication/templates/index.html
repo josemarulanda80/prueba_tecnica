@@ -8,8 +8,8 @@
 <div class="container text-center mt-1">
     <div class="row">
       <div class="col-6 col-sm-5 card p-0">
-        {% if total == None %}
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Nuvola_apps_error.svg/1200px-Nuvola_apps_error.svg.png" width="50px" height="50px" alt="">
+        {% if imagine == None %}
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Nuvola_apps_error.svg/1200px-Nuvola_apps_error.svg.png" alt="">
         {% else %}  
           <img src="http://127.0.0.1:5000/img" alt="No image">
         {% endif %}
@@ -19,7 +19,12 @@
       <div class="row">
         <div class="col-6 col-sm-5 card mt-1">Presets</div>
       </div>
-      <div class="row">
+      {% if imagine == None %}
+      <div class="row mt-1">
+        <div class="col-6 col-sm-5 card text-danger">Error de conexion no es posible cargar la imagen</div>
+      </div>
+      {% else %}
+      <div class="row mt-1">
         <div class="col-6 col-sm-5 card mt-1 ps-5 pt-2">
           <form action="POST">
             <input class="row mb-1" type="checkbox" value="20" name="a">
@@ -29,6 +34,8 @@
             <input class="row mb-1 btn btn-primary" type="submit" placeholder="Binarización" >
           </form>
         </div>
+      
       </div>
+      {% endif %}
   </div>
 {% endblock %}
