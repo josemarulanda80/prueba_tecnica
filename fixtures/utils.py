@@ -1,5 +1,4 @@
 
-from asyncio import sleep
 from pymodbus.client.tcp import ModbusTcpClient
 import pymysql
 import time
@@ -41,15 +40,6 @@ def insert_images():
     conexion.commit()
     conexion.close()
     conexion = get_conexion()
-    preserts=[0.1,0.4,0.7,0.9]
-    fecha = time.strftime("%y/%m/%d")
-    # with conexion.cursor() as cursor:
-    #     for j in range(1,5):
-    #         for i in preserts:
-    #             cursor.execute("INSERT INTO preserts(img,value,created) VALUES (%s,%s,%s)",
-    #                     (j,i,fecha))
-    # conexion.commit()
-    # conexion.close()
     insert_preserts()
 
 

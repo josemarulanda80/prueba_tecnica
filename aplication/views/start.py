@@ -18,26 +18,13 @@ def index():
         return render_template("index.html")
     
 
-@init.route("/node")
-def node():
-    preserts = Presert.query.all()
-    if preserts ==[]:
-        add_preserts_images()
-        return render_template("index.html")
-    else:
-        return render_template("index.html")
-
 
 @init.route('/img',methods=["GET"])
 def get_file():
-    # data = {"id":int(request.args.get('id'))}
-    # if "id" not in data:
-    #     return jsonify({"message":"No ingreso el usarname"})
-    # if  len(str(data["id"]))==0:
-    #     return jsonify({"message":"No ingreso nada en el usuario"})
     name_file=get_register()
-    if name_file!=None:
-        return send_from_directory(app.config.get('UPLOAD_FOLDER'),path='1.jpg',as_attachment=False)
+    print(name_file)
+    if name_file!="Error: Not conexion":
+        return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{str(name_file)}.jpg',as_attachment=False)
     else:
-        abort(404)
+        return {"message":"Error conexion modbu"}
 
