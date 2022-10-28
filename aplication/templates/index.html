@@ -69,7 +69,7 @@
             Nombre: {{presert.filename}}, Valor:{{presert.value}}
           </div>
         </div>
-        <form method="POST" action="/">
+        <form method="POST" action="/presets">
           {% if binirization == false %}
           <div class="row m-1">
 
@@ -88,8 +88,8 @@
           </div>
           <div class="row m-1">
             <div class="col-6 col-sm-2">
-              <label class="text-dark" for="value" value="{{presert.value}}">Valor</label>
-              <input name="value" type="text">
+              <label class="text-dark" for="value" >Valor</label>
+              <input name="value" type="text" value="{{presert.value}}">
             </div>
           </div>
           <div class="row text-dark">

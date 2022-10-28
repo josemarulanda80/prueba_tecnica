@@ -1,5 +1,5 @@
 
-from flask import render_template, request,send_from_directory,Blueprint, url_for,redirect
+from flask import render_template, request,send_from_directory,Blueprint, url_for,redirect,request
 from fixtures.utils import get_register,insert_preserts,get_presert,created_binarization
 from aplication import app
 from aplication.models.database import Presert
@@ -74,3 +74,11 @@ def prebinarization():
             
             return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None, message=message)
 
+@init.route('/presets',methods=["POST"])
+def presets():
+    if request.method == "POST":
+        print(request.form['id'])
+        print(request.form['name'])
+        print(request.form['value'])
+        print(request.form['res'])
+        return "yeaa papi"
