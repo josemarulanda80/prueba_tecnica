@@ -70,15 +70,9 @@
           </div>
         </div>
         <form method="POST" action="/presets">
-          {% if binirization == false %}
-          <div class="row m-1">
-
-            <div class="col-6 col-sm-2">
-              <label class="text-dark" for="id">Nombre</label>
-              <input name="id" type="text" value="{{presert.id}}" >
-            </div>
-          </div>
-          {% endif %}
+     
+              <input name="id" type="hidden" value="{{presert.id}}" >
+   
           <div class="row m-1">
 
             <div class="col-6 col-sm-2">
@@ -94,12 +88,12 @@
           </div>
           <div class="row text-dark">
             <div class="col-6 col-sm-3">
-              <input class="text-dark" type="radio" id="res" name="res" value="new"> Agregar
+              <input class="text-dark" type="radio" id="res" name="res" value="new" required> Agregar
             </div>
           </div>
           <div class="row text-dark" >
             <div class="col-6 col-sm-3">
-              <input  type="radio" id="res" name="res" value="update"> Cambiar
+              <input  type="radio" id="res" name="res" value="update" required> Cambiar
             </div>
           </div>
           
