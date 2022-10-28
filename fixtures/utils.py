@@ -33,7 +33,7 @@ def get_conexion():
 
 def insert_preserts():
     conexion = get_conexion()
-    preserts=["a","b","c","d"]
+    preserts=["opción 1","opción 2","opción 3","opción 4"]
     values=[10,40,70,90]
     fecha = time.strftime("%y/%m/%d")
     with conexion.cursor() as cursor:
