@@ -1,6 +1,11 @@
 from pymodbus.client.tcp import ModbusTcpClient
 import pymysql
 import time
+from skimage import io,color
+from skimage.filters import gaussian
+import os
+from aplication import app,db
+from aplication.models.database import Presert
 
 
 def get_register():
@@ -37,3 +42,17 @@ def insert_preserts():
                         (preserts[j],values[j],fecha))
     conexion.commit()
     conexion.close()
+
+def created_binarization(number,filename):
+    img = io.imread(app.config.get('UPLOAD_FOLDER')+str(filename)+".jpg")
+    img_gris = color.rgb2gray(img)
+    t = number/100
+    binary_mask = img_gris < t
+   
+    io.imshow(binary_mask, cmap="gray")
+    io.imsave(os.path.join(app.config.get('UPLOAD_FOLDER'),"image_binarization.jpg"),binary_mask)
+
+def get_presert(id):
+
+    presert=Presert.query.filter_by(id=id).first()
+    return presert
