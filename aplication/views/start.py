@@ -64,7 +64,7 @@ def prebinarization():
             print(presert_selected.filename)
             print(presert_selected.value)
             created_binarization(presert_selected.value,get_register())
-            return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=True, message=None)
+            return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=True, message=None, presert=presert_selected)
         else:
             if  len(request.form.getlist('mycheckbox'))==0:
                 message = "No ha seleccionado alguna opción"
@@ -73,6 +73,4 @@ def prebinarization():
                 message ="Solo puede selecionar una opción"
             
             return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None, message=message)
-    
-    return render_template("index.html",imagine=get_file(),preserts=total_images)
 

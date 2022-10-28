@@ -5,59 +5,106 @@
 
 {% block content %}
 <div class="container text-center mt-1">
-    <div class="row">
-      <div class="col-6 col-sm-5 card p-0">
-        {% if imagine == None %}
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Nuvola_apps_error.svg/1200px-Nuvola_apps_error.svg.png" alt="">
-        {% else %}  
-          <img src="http://127.0.0.1:5000/img" alt="No image">
-        {% endif %}
-
-      </div>
-      <div class="col-6 col-sm-5 card p-0">
-        {% if binarization == None %} 
-          <img src="https://previews.123rf.com/images/boxerx/boxerx1611/boxerx161100006/68882648-descargar-signo-en-fondo-blanco-cargar-icono-barra-de-carga-de-datos-ilustraci%C3%B3n-de-stock-vector.jpg" alt="">
-        {% else %}
-          <img src="http://127.0.0.1:5000/image/binarization" alt="Imagen no encontrada">
-        {% endif %}
-
-      </div>
-      <div class="row">
-        <div class="col-6 col-sm-5 card mt-1">Presets</div>
-        {% if binarization == None and message!=None %} 
-          <div class="col-6 col-sm-5 card mt-1">Mensajes</div>
-          {% endif %}
-
-          {% if message == None %}
-          
-
-          {% endif %}
-
-          {% if binarization != None  %}
-          <div class="col-6 col-sm-5 card mt-1">Opciones</div>
-          {% endif %}
-      </div>
+  <div class="row">
+    <div class="col-6 col-sm-5 card p-0">
       {% if imagine == None %}
-      <div class="row mt-1">
-        <div class="col-6 col-sm-5 card text-danger">Error de conexion no es posible cargar la imagen</div>
-      </div>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Nuvola_apps_error.svg/1200px-Nuvola_apps_error.svg.png"
+        alt="">
       {% else %}
+      <img src="http://127.0.0.1:5000/img" alt="No image">
+      {% endif %}
 
-      <div class="row mt-1">
-       
-        <div class="col-6 col-sm-5 card mt-1 ps-5 pt-2">
-          <form method="POST" action="/prebinarization">
-            
-            {% for i in preserts %}
-             {{i.filename}} <input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">  
-            {% endfor %}
-            <input class="row mb-1 btn btn-primary" type="submit"  >
-          </form>
-        </div>
-        {% if binarization == None and message!=None %}
-        <div class="col-6 col-sm-5 card text-danger">{{message}}</div>
+    </div>
+    <div class="col-6 col-sm-5 card p-0">
+      {% if binarization == None %}
+      <img
+        src="https://previews.123rf.com/images/boxerx/boxerx1611/boxerx161100006/68882648-descargar-signo-en-fondo-blanco-cargar-icono-barra-de-carga-de-datos-ilustraci%C3%B3n-de-stock-vector.jpg"
+        alt="">
+      {% else %}
+      <img src="http://127.0.0.1:5000/image/binarization" alt="Imagen no encontrada">
       {% endif %}
+
+    </div>
+    <div class="row">
+      <div class="col-6 col-sm-5 card mt-1">Presets</div>
+      {% if binarization == None and message!=None %}
+      <div class="col-6 col-sm-5 card mt-1">Mensajes</div>
+      {% endif %}
+
+      {% if message == None %}
+
+
+      {% endif %}
+
+      {% if binarization != None %}
+      <div class="col-6 col-sm-5 card mt-1">Opciones</div>
+      {% endif %}
+    </div>
+    {% if imagine == None %}
+    <div class="row mt-1">
+      <div class="col-6 col-sm-5 card text-danger">Error de conexion no es posible cargar la imagen</div>
+    </div>
+    {% else %}
+
+    <div class="row mt-1">
+
+      <div class="col-6 col-sm-5 card mt-1 ps-5 pt-2">
+        <form method="POST" action="/prebinarization">
+
+          {% for i in preserts %}
+          {{i.filename}} <input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
+          {% endfor %}
+          <input class="row mb-1 btn btn-primary" type="submit">
+        </form>
       </div>
+
+      {% if binarization == None and message!=None %}
+      <div class="col-6 col-sm-5 card text-danger">{{message}}</div>
       {% endif %}
+      {% if binarization != None and message==None %}
+      <div class="col-6 col-sm-5 card text-danger">
+        <div class="row m-1">
+          <div class="col-6 col-sm-5 text-center m-0 p-d text-dark mx-auto">
+            Nombre: {{presert.filename}}, Valor:{{presert.value}}
+          </div>
+        </div>
+        <form method="POST" action="/">
+          <div class="row m-1">
+
+            <div class="col-6 col-sm-2">
+              <label class="text-dark" for="name">Nombre</label>
+              <input name="name" type="text">
+            </div>
+          </div>
+          <div class="row m-1">
+            <div class="col-6 col-sm-2">
+              <label class="text-dark" for="value">Valor</label>
+              <input name="value" type="text">
+            </div>
+          </div>
+          <div class="row text-dark">
+            <div class="col-6 col-sm-3">
+              <input class="text-dark" type="radio" id="res" name="res" value="new"> Agregar
+            </div>
+          </div>
+          <div class="row text-dark" >
+            <div class="col-6 col-sm-3">
+              <input  type="radio" id="res" name="res" value="update"> Cambiar
+            </div>
+          </div>
+          
+        
+          <div class="row m-1">
+            <div class="col-6 col-sm-3"><input class="m-2 ms-1 btn btn-primary" type="submit"></div>
+            <div class="col-6 col-sm-3 mt-2"><a href=""><button class="btn btn-danger">Delete</button></a></div>
+          
+          </div>
+      </div>
+    </div>
+      </form>
+      {% endif %}
+    </div>
+    {% endif %}
   </div>
-{% endblock %}
+  {% endblock %}
