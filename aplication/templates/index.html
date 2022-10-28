@@ -70,16 +70,25 @@
           </div>
         </div>
         <form method="POST" action="/">
+          {% if binirization == false %}
+          <div class="row m-1">
+
+            <div class="col-6 col-sm-2">
+              <label class="text-dark" for="id">Nombre</label>
+              <input name="id" type="text" value="{{presert.id}}" >
+            </div>
+          </div>
+          {% endif %}
           <div class="row m-1">
 
             <div class="col-6 col-sm-2">
               <label class="text-dark" for="name">Nombre</label>
-              <input name="name" type="text">
+              <input name="name" type="text" value="{{presert.filename}}">
             </div>
           </div>
           <div class="row m-1">
             <div class="col-6 col-sm-2">
-              <label class="text-dark" for="value">Valor</label>
+              <label class="text-dark" for="value" value="{{presert.value}}">Valor</label>
               <input name="value" type="text">
             </div>
           </div>
