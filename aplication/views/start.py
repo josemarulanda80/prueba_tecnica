@@ -1,15 +1,17 @@
 
-
-
-from scipy.fftpack import ifftn
-from aplication import db
-from flask import render_template,abort, request,send_from_directory,Blueprint, url_for,redirect
+from flask import render_template, request,send_from_directory,Blueprint, url_for,redirect
 from fixtures.utils import get_register,insert_preserts
 from aplication import app
 from aplication.models.database import Presert
 from aplication import cache
+from flask import render_template
+
 
 init = Blueprint('/',__name__)
+
+@init.app_errorhandler(404)
+def handle_404(e):
+    return render_template('404.html'), 404
 
 cache.clear()
 @init.route("/")
@@ -42,6 +44,10 @@ def get_file():
             return None
     return None
 
+@init.route('/image/binarization')
+def image_binarization():
+    return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'image_binarization.jpg')
+
 @init.route('/prebinarization',methods=["POST"])
 def prebinarization():
     message=None
@@ -49,6 +55,10 @@ def prebinarization():
     if request.method == "POST":
         print(request.form.getlist('mycheckbox'))
         if len(request.form.getlist('mycheckbox'))==1:
+            #El valor entregado sera el id del presert
+            #Se consulta el presert para obtener los datos y enviarlo tambien al template para  mostrarlo 
+            #para la binarización de la imagen necesito enviar la foto la get_register() para encontrar la imagen
+            #necesito crear un methodo que me muestre la imagen binarizada
             return f"Done {request.form.getlist('mycheckbox')}"
         else:
             if  len(request.form.getlist('mycheckbox'))==0:
@@ -59,3 +69,4 @@ def prebinarization():
             return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None, message=message)
     
     return render_template("index.html",imagine=get_file(),preserts=total_images)
+
