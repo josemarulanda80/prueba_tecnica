@@ -52,11 +52,11 @@
       <div class="col-6 col-sm-5 card mt-1 ps-5 pt-2">
         <form method="POST" action="/prebinarization">
           <div class="col-6 col-sm-5  text-dark">
-          {% for i in preserts %}
-          {{i.filename}}<input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
-          {% endfor %}
-          <input class="row mb-1 mt-5 btn btn-primary" type="submit">
-        </div>
+            {% for i in preserts %}
+            {{i.filename}}<input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
+            {% endfor %}
+            <input class="row mb-1 mt-5 btn btn-primary" type="submit">
+          </div>
         </form>
       </div>
 
@@ -71,9 +71,9 @@
           </div>
         </div>
         <form method="POST" action="/presets">
-     
-              <input name="id" type="hidden" value="{{presert.id}}" >
-   
+
+          <input name="id" type="hidden" value="{{presert.id}}">
+
           <div class="row m-1">
 
             <div class="col-6 col-sm-2">
@@ -83,7 +83,7 @@
           </div>
           <div class="row m-1">
             <div class="col-6 col-sm-2">
-              <label class="text-dark" for="value" >Valor</label>
+              <label class="text-dark" for="value">Valor</label>
               <input name="value" type="text" value="{{presert.value}}">
             </div>
           </div>
@@ -92,28 +92,29 @@
               <input class="text-dark" type="radio" id="res" name="res" value="new" required> Agregar
             </div>
           </div>
-          <div class="row text-dark" >
+          <div class="row text-dark">
             <div class="col-6 col-sm-3">
-              <input  type="radio" id="res" name="res" value="update" required> Cambiar
+              <input type="radio" id="res" name="res" value="update" required> Cambiar
             </div>
           </div>
-          
-        
+
+
           <div class="row m-1">
             <div class="col-6 col-sm-3"><input class="m-2 ms-1 btn btn-primary" type="submit"></div>
-            
-          
+
+
           </div>
         </form>
         <div class="row-m-1">
-          <div class="col-6 col-sm-3 mt-2"><a href="/deletes/{{presert.id}}"><button class="btn btn-danger">Delete</button></a></div>
+          <div class="col-6 col-sm-3 mt-2"><a href="/deletes/{{presert.id}}"><button
+                class="btn btn-danger">Delete</button></a></div>
         </div>
       </div>
     </div>
-   
-    
-      {% endif %}
-    </div>
+
+
     {% endif %}
   </div>
-  {% endblock %}
+  {% endif %}
+</div>
+{% endblock %}

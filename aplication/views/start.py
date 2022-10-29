@@ -10,15 +10,16 @@ from flask import render_template
 
 init = Blueprint('/',__name__)
 
+total_images=Presert.query.all()
 @init.app_errorhandler(404)
 def handle_404(e):
     return render_template('404.html'), 404
 
-cache.clear()
+
 @init.route("/")
 
 def index():
-    
+    cache.clear()
     total_images=Presert.query.all()
     binarization=None
     print("Holo")
@@ -35,6 +36,7 @@ def index():
 @init.route('/img',methods=["GET"])
 
 def get_file():
+    cache.clear()
     name_file=get_register()
   
     print(name_file)
@@ -47,12 +49,14 @@ def get_file():
 
 @init.route('/image/binarization')
 def image_binarization():
+    cache.clear()
     return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'image_binarization.jpg')
 
 @init.route('/prebinarization',methods=["POST"])
 def prebinarization():
+    cache.clear()
     message=None
-    total_images=Presert.query.all()
+
     if request.method == "POST":
         print(request.form.getlist('mycheckbox'))
         if len(request.form.getlist('mycheckbox'))==1:
@@ -73,7 +77,7 @@ def prebinarization():
 
 @init.route('/presets',methods=["POST"])
 def presets():
-    
+    cache.clear()
     if request.method == "POST":
 
         update_presert=get_presert(request.form['id'])
@@ -85,11 +89,11 @@ def presets():
                     update_presert.filename=request.form['name']
                     update_presert.value=request.form['value']
                     db.session.commit()
-                    return redirect(url_for('.index'))
+                    return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message=None)
                 else:
-                     return " no se puede editar"
+                     return  render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="No se puede editar por que no hay cambios")
             else:
-                 return redirect(url_for('.handle_404'))
+                 return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="Error desconocido")
         else:
             print("Holi2")
             print(Presert.query.filter_by(id=request.form['id']).first())
@@ -99,21 +103,23 @@ def presets():
                 new_presert=Presert(filename=request.form['name'],value=request.form['value'])
                 db.session.add(new_presert)
                 db.session.commit()
-                return  redirect(url_for('.index'))
+                return redirect(url_for('.index'))
             else:
-                return  " no se puede crear"
+                return  render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="No es posible crear, por que el valor ya existe")
             
 
 
 @init.route('/deletes/<int:id>')
+
 def delete(id):
+    cache.clear()
     delete_presert=Presert.query.filter_by(id=id).first()
     if delete_presert != None:
         db.session.delete(delete_presert)
         db.session.commit()
         return redirect(url_for('.index'))
     else:
-        return "Normal"
+        return redirect(url_for('.app_errorhandler'))
 
 
 
