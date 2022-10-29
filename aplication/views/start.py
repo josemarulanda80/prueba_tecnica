@@ -15,12 +15,10 @@ total_images=Presert.query.all()
 def handle_404(e):
     return render_template('404.html'), 404
 
-
+"""application startup endpoint that renders the main application components"""
 @bp.route("/")
-
 def index():
     cache.clear()
-    total_images=Presert.query.all()
     binarization=None
     if len(total_images) == 0: 
             insert_preserts()
@@ -28,13 +26,12 @@ def index():
             return url_for('index')
     else:
         return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=binarization,message=None)
-    
 
-
+"""endpoint to display the image"""
 @bp.route('/img',methods=["GET"])
-
 def get_file():
     cache.clear()
+    """get number of modbu"""
     name_file=get_register()
     if name_file != "Error: Not conexion":
         if name_file >0 and name_file <5:
@@ -48,25 +45,24 @@ def image_binarization():
     cache.clear()
     return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'image_binarization.jpg')
 
+"""Function to be able to validate the form for presert"""
 @bp.route('/prebinarization',methods=["POST"])
 def prebinarization():
     cache.clear()
     message=None
-
     if request.method == "POST":
-
+        """check that a presert is selected"""
         if len(request.form.getlist('mycheckbox'))==1:
             presert_selected= get_presert(request.form.getlist('mycheckbox')[0])
             created_binarization(presert_selected.value,get_register())
             total_preserts=Presert.query.all()
             return render_template("index.html",imagine=get_file(),preserts=total_preserts,binarization=True, message=None, presert=presert_selected)
         else:
+            """Error presert selected"""
             if  len(request.form.getlist('mycheckbox'))==0:
                 message = "No ha seleccionado alguna opción"
-            
             if len(request.form.getlist('mycheckbox')) >0:
                 message ="Solo puede selecionar una opción"
-            
             return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None, message=message)
 
 @bp.route('/presets',methods=["POST"])

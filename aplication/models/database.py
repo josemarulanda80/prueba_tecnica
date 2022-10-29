@@ -3,6 +3,7 @@ from aplication import db
 from datetime import datetime
 
 
+"""models database for preserts"""
 class Presert(db.Model):
     __tablename__="preserts"
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
