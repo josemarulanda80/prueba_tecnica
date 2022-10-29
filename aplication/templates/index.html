@@ -47,15 +47,16 @@
     </div>
     {% else %}
 
-    <div class="row mt-1">
+    <div class="row ">
 
       <div class="col-6 col-sm-5 card mt-1 ps-5 pt-2">
         <form method="POST" action="/prebinarization">
-
+          <div class="col-6 col-sm-5  text-dark">
           {% for i in preserts %}
-          {{i.filename}} <input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
+          <input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
           {% endfor %}
           <input class="row mb-1 btn btn-primary" type="submit">
+        </div>
         </form>
       </div>
 
@@ -100,12 +101,17 @@
         
           <div class="row m-1">
             <div class="col-6 col-sm-3"><input class="m-2 ms-1 btn btn-primary" type="submit"></div>
-            <div class="col-6 col-sm-3 mt-2"><a href=""><button class="btn btn-danger">Delete</button></a></div>
+            
           
           </div>
+        </form>
+        <div class="row-m-1">
+          <div class="col-6 col-sm-3 mt-2"><a href="/delete/{{presert.id}}"><button class="btn btn-danger">Delete</button></a></div>
+        </div>
       </div>
     </div>
-      </form>
+   
+    
       {% endif %}
     </div>
     {% endif %}

@@ -10,7 +10,7 @@ class Presert(db.Model):
     created=db.Column(db.DateTime,nullable=False, default=datetime.utcnow)
     
     def __init__(self, filename,value):
-        self.img=filename
+        self.filename=filename
         self.value=value
 
     def __repr__(self) -> str:

@@ -77,10 +77,11 @@ def prebinarization():
 @init.route('/presets',methods=["POST"])
 def presets():
     if request.method == "POST":
-        print(request.form['id'])
+        # print(request.form['id'])
         print(request.form['name'])
         print(request.form['value'])
-        print(request.form['res'])
+        # print(request.form['res'])
+        a=request.form['name']
         if request.form['res'] == "update":
             update_presert=get_presert(request.form['id'])
             if update_presert != None:
@@ -91,8 +92,24 @@ def presets():
             else:
                  return "no papi"
         else:
+            print("Holi")
+            print(request.form['name'])
+            print(request.form['value'])
             new_presert=Presert(filename=request.form['name'],value=request.form['value'])
             db.session.add(new_presert)
             db.session.commit()
             return "creado papí"
-        return "yeaa papi"
+        
+
+
+@init.route('/delete/<int:id>')
+def delete(id):
+    delete_presert=Presert.query.filter_by(id=id).first()
+    if delete_presert != None:
+        db.session.delete(delete_presert)
+        db.session.commit()
+        return "Borrado"
+    else:
+        return "Normal"
+
+
