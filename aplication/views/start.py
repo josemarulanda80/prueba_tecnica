@@ -89,7 +89,7 @@ def presets():
                 else:
                      return " no se puede editar"
             else:
-                 return "no papi"
+                 return redirect(url_for('.handle_404'))
         else:
             print("Holi2")
             print(Presert.query.filter_by(id=request.form['id']).first())
