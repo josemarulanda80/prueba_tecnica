@@ -90,4 +90,9 @@ def presets():
                 return "Yeaa Papi"
             else:
                  return "no papi"
+        else:
+            new_presert=Presert(filename=request.form['name'],value=request.form['value'])
+            db.session.add(new_presert)
+            db.session.commit()
+            return "creado papí"
         return "yeaa papi"
