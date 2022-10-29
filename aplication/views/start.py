@@ -22,8 +22,6 @@ def index():
     cache.clear()
     total_images=Presert.query.all()
     binarization=None
-    print("Holo")
-    print(total_images)
     if len(total_images) == 0: 
             insert_preserts()
             
@@ -38,8 +36,6 @@ def index():
 def get_file():
     cache.clear()
     name_file=get_register()
-  
-    print(name_file)
     if name_file != "Error: Not conexion":
         if name_file >0 and name_file <5:
             return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'{str(name_file)}.jpg')
@@ -58,12 +54,9 @@ def prebinarization():
     message=None
 
     if request.method == "POST":
-        print(request.form.getlist('mycheckbox'))
+
         if len(request.form.getlist('mycheckbox'))==1:
             presert_selected= get_presert(request.form.getlist('mycheckbox')[0])
-            print("Holi")
-            print(presert_selected.filename)
-            print(presert_selected.value)
             created_binarization(presert_selected.value,get_register())
             return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=True, message=None, presert=presert_selected)
         else:
@@ -95,9 +88,6 @@ def presets():
             else:
                  return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="Error desconocido")
         else:
-            print("Holi2")
-            print(Presert.query.filter_by(id=request.form['id']).first())
-            print(request.form['value'])
             
             if str(update_presert.value) != str(request.form['value']):
                 new_presert=Presert(filename=request.form['name'],value=request.form['value'])
@@ -125,6 +115,3 @@ def delete(id):
 
 
 
-# Renderizar la pagina para cuando las acciones estan bien
-#aplicar flash para mostrar mensajes de error
-# Renderizar la pagina para cuando las acciones estan mal
