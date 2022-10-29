@@ -9,8 +9,8 @@ app.config.from_object('config.DevelopmentConfig')
 db = SQLAlchemy(app)
 
 
-from aplication.views.start import init
+from aplication.views.start import bp
 
-app.register_blueprint(init)
+app.register_blueprint(bp)
 
 db.create_all()

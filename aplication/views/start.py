@@ -8,15 +8,15 @@ from aplication import cache
 from flask import render_template
 
 
-init = Blueprint('/',__name__)
+bp = Blueprint('/',__name__)
 
 total_images=Presert.query.all()
-@init.app_errorhandler(404)
+@bp.app_errorhandler(404)
 def handle_404(e):
     return render_template('404.html'), 404
 
 
-@init.route("/")
+@bp.route("/")
 
 def index():
     cache.clear()
@@ -31,7 +31,7 @@ def index():
     
 
 
-@init.route('/img',methods=["GET"])
+@bp.route('/img',methods=["GET"])
 
 def get_file():
     cache.clear()
@@ -43,12 +43,12 @@ def get_file():
             return None
     return None
 
-@init.route('/image/binarization')
+@bp.route('/image/binarization')
 def image_binarization():
     cache.clear()
     return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'image_binarization.jpg')
 
-@init.route('/prebinarization',methods=["POST"])
+@bp.route('/prebinarization',methods=["POST"])
 def prebinarization():
     cache.clear()
     message=None
@@ -58,7 +58,8 @@ def prebinarization():
         if len(request.form.getlist('mycheckbox'))==1:
             presert_selected= get_presert(request.form.getlist('mycheckbox')[0])
             created_binarization(presert_selected.value,get_register())
-            return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=True, message=None, presert=presert_selected)
+            total_preserts=Presert.query.all()
+            return render_template("index.html",imagine=get_file(),preserts=total_preserts,binarization=True, message=None, presert=presert_selected)
         else:
             if  len(request.form.getlist('mycheckbox'))==0:
                 message = "No ha seleccionado alguna opción"
@@ -68,7 +69,7 @@ def prebinarization():
             
             return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None, message=message)
 
-@init.route('/presets',methods=["POST"])
+@bp.route('/presets',methods=["POST"])
 def presets():
     cache.clear()
     if request.method == "POST":
@@ -99,7 +100,7 @@ def presets():
             
 
 
-@init.route('/deletes/<int:id>')
+@bp.route('/deletes/<int:id>')
 
 def delete(id):
     cache.clear()
