@@ -1,5 +1,6 @@
 
 from flask import render_template, request,send_from_directory,Blueprint, url_for,redirect,request
+from sqlalchemy import values
 from fixtures.utils import get_register,insert_preserts,get_presert,created_binarization
 from aplication import app,db
 from aplication.models.database import Presert
@@ -76,30 +77,36 @@ def prebinarization():
 
 @init.route('/presets',methods=["POST"])
 def presets():
+    
     if request.method == "POST":
-        # print(request.form['id'])
-        print(request.form['name'])
-        print(request.form['value'])
-        # print(request.form['res'])
-        a=request.form['name']
+
+        update_presert=get_presert(request.form['id'])
         if request.form['res'] == "update":
-            update_presert=get_presert(request.form['id'])
+           
             if update_presert != None:
-                update_presert.filename=request.form['name']
-                update_presert.value=request.form['value']
-                db.session.commit()
-                return "Yeaa Papi"
+               
+                if  str(update_presert.value) != str(request.form['value']):
+                    update_presert.filename=request.form['name']
+                    update_presert.value=request.form['value']
+                    db.session.commit()
+                    return "Yeaa Papi"
+                else:
+                     return " no se puede editar"
             else:
                  return "no papi"
         else:
-            print("Holi")
-            print(request.form['name'])
+            print("Holi2")
+            print(Presert.query.filter_by(id=request.form['id']).first())
             print(request.form['value'])
-            new_presert=Presert(filename=request.form['name'],value=request.form['value'])
-            db.session.add(new_presert)
-            db.session.commit()
-            return "creado papí"
-        
+            
+            if str(update_presert.value) != str(request.form['value']):
+                new_presert=Presert(filename=request.form['name'],value=request.form['value'])
+                db.session.add(new_presert)
+                db.session.commit()
+                return "Se creo papi"
+            else:
+                return  " no se puede crear"
+            
 
 
 @init.route('/delete/<int:id>')

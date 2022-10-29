@@ -53,9 +53,9 @@
         <form method="POST" action="/prebinarization">
           <div class="col-6 col-sm-5  text-dark">
           {% for i in preserts %}
-          <input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
+          {{i.filename}}<input class="row mb-1" type="checkbox" value="{{i.id}}" name="mycheckbox">
           {% endfor %}
-          <input class="row mb-1 btn btn-primary" type="submit">
+          <input class="row mb-1 mt-5 btn btn-primary" type="submit">
         </div>
         </form>
       </div>
@@ -64,10 +64,10 @@
       <div class="col-6 col-sm-5 card text-danger">{{message}}</div>
       {% endif %}
       {% if binarization != None and message==None %}
-      <div class="col-6 col-sm-5 card text-danger">
+      <div class="col-6 col-sm-5 card mt-1">
         <div class="row m-1">
           <div class="col-6 col-sm-5 text-center m-0 p-d text-dark mx-auto">
-            Nombre: {{presert.filename}}, Valor:{{presert.value}}
+            Nombre: {{presert.filename}}, Valor: {{presert.value}}
           </div>
         </div>
         <form method="POST" action="/presets">
