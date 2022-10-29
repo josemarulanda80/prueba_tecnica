@@ -71,11 +71,8 @@
           </div>
         </div>
         <form method="POST" action="/presets">
-
           <input name="id" type="hidden" value="{{presert.id}}">
-
           <div class="row m-1">
-
             <div class="col-6 col-sm-2">
               <label class="text-dark" for="name">Nombre</label>
               <input name="name" type="text" value="{{presert.filename}}">
@@ -84,7 +81,7 @@
           <div class="row m-1">
             <div class="col-6 col-sm-2">
               <label class="text-dark" for="value">Valor</label>
-              <input name="value" type="text" value="{{presert.value}}">
+              <input name="value" type="number" min="1" max="100" value="{{presert.value}}">
             </div>
           </div>
           <div class="row text-dark">
@@ -97,12 +94,8 @@
               <input type="radio" id="res" name="res" value="update" required> Cambiar
             </div>
           </div>
-
-
           <div class="row m-1">
             <div class="col-6 col-sm-3"><input class="m-2 ms-1 btn btn-primary" type="submit"></div>
-
-
           </div>
         </form>
         <div class="row-m-1">

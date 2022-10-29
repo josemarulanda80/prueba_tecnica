@@ -10,7 +10,7 @@ from flask import render_template
 
 bp = Blueprint('/',__name__)
 
-total_images=Presert.query.all()
+
 @bp.app_errorhandler(404)
 def handle_404(e):
     return render_template('404.html'), 404
@@ -20,6 +20,7 @@ def handle_404(e):
 def index():
     cache.clear()
     binarization=None
+    total_images=Presert.query.all()
     if len(total_images) == 0: 
             insert_preserts()
             
@@ -59,6 +60,7 @@ def prebinarization():
             return render_template("index.html",imagine=get_file(),preserts=total_preserts,binarization=True, message=None, presert=presert_selected)
         else:
             """Error presert selected"""
+            total_images=Presert.query.all()
             if  len(request.form.getlist('mycheckbox'))==0:
                 message = "No ha seleccionado alguna opción"
             if len(request.form.getlist('mycheckbox')) >0:
@@ -74,7 +76,7 @@ def presets():
         if request.form['res'] == "update":
            
             if update_presert != None:
-               
+                total_images=Presert.query.all()
                 if  str(update_presert.value) != str(request.form['value']):
                     update_presert.filename=request.form['name']
                     update_presert.value=request.form['value']
