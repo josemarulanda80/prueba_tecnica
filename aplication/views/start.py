@@ -1,7 +1,7 @@
 
 from flask import render_template, request,send_from_directory,Blueprint, url_for,redirect,request
 from fixtures.utils import get_register,insert_preserts,get_presert,created_binarization
-from aplication import app
+from aplication import app,db
 from aplication.models.database import Presert
 from aplication import cache
 from flask import render_template
@@ -81,4 +81,13 @@ def presets():
         print(request.form['name'])
         print(request.form['value'])
         print(request.form['res'])
+        if request.form['res'] == "update":
+            update_presert=get_presert(request.form['id'])
+            if update_presert != None:
+                update_presert.filename=request.form['name']
+                update_presert.value=request.form['value']
+                db.session.commit()
+                return "Yeaa Papi"
+            else:
+                 return "no papi"
         return "yeaa papi"
