@@ -56,10 +56,6 @@ def prebinarization():
     if request.method == "POST":
         print(request.form.getlist('mycheckbox'))
         if len(request.form.getlist('mycheckbox'))==1:
-#echo       #El valor entregado sera el id del presert
-            #Se consulta el presert para obtener los datos y enviarlo tambien al template para  mostrarlo 
-            #para la binarización de la imagen necesito enviar la foto la get_register() para encontrar la imagen
-#echo       #necesito crear un methodo que me muestre la imagen binarizada
             presert_selected= get_presert(request.form.getlist('mycheckbox')[0])
             print("Holi")
             print(presert_selected.filename)
@@ -89,7 +85,7 @@ def presets():
                     update_presert.filename=request.form['name']
                     update_presert.value=request.form['value']
                     db.session.commit()
-                    return "Yeaa Papi"
+                    return redirect(url_for('.index'))
                 else:
                      return " no se puede editar"
             else:
@@ -103,20 +99,26 @@ def presets():
                 new_presert=Presert(filename=request.form['name'],value=request.form['value'])
                 db.session.add(new_presert)
                 db.session.commit()
-                return "Se creo papi"
+                return  redirect(url_for('.index'))
             else:
                 return  " no se puede crear"
             
 
 
-@init.route('/delete/<int:id>')
+@init.route('/deletes/<int:id>')
 def delete(id):
     delete_presert=Presert.query.filter_by(id=id).first()
     if delete_presert != None:
         db.session.delete(delete_presert)
         db.session.commit()
-        return "Borrado"
+        return redirect(url_for('.index'))
     else:
         return "Normal"
 
 
+
+
+
+# Renderizar la pagina para cuando las acciones estan bien
+#aplicar flash para mostrar mensajes de error
+# Renderizar la pagina para cuando las acciones estan mal
