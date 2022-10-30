@@ -10,6 +10,7 @@ from flask import render_template
 bp = Blueprint('/',__name__)
 
 
+"""endpoint redirects to the 404 page in case the user enters an endpoint that does not exist."""
 @bp.app_errorhandler(404)
 def handle_404(e):
     return render_template('404.html'), 404
@@ -39,6 +40,7 @@ def get_file(name):
             return None
     return None
 
+"""endpoint to display the binarization image"""
 @bp.route('/image/binarization')
 def image_binarization():
     return send_from_directory(app.config.get('UPLOAD_FOLDER'),path=f'image_binarization.jpg')
@@ -63,6 +65,7 @@ def prebinarization():
                 message ="Solo puede selecionar una opción"
             return render_template("index.html",imagine=get_file(get_register()),preserts=total_images,binarization=None, message=message,imagen=get_register())
 
+"""endpoint to update or create an endpoint"""
 @bp.route('/presets',methods=["POST"])
 def presets():
     if request.method == "POST":
@@ -93,8 +96,8 @@ def presets():
             
 
 
+"""endpoint to delete a presert """
 @bp.route('/deletes/<int:id>')
-
 def delete(id):
     delete_presert=Presert.query.filter_by(id=id).first()
     if delete_presert != None:
