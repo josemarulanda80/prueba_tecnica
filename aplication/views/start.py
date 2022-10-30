@@ -83,11 +83,11 @@ def presets():
                     db.session.commit()
                     return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message=None)
                 else:
-                     return  render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="No se puede editar por que no hay cambios")
+                     return  render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="No se puede editar por que el value ya esta en la base datos")
             else:
                  return render_template("index.html",imagine=get_file(),preserts=total_images,binarization=None,message="Error desconocido")
         else:
-            
+            total_images=Presert.query.all()
             if str(update_presert.value) != str(request.form['value']):
                 new_presert=Presert(filename=request.form['name'],value=request.form['value'])
                 db.session.add(new_presert)
